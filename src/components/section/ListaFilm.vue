@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         putFlag(lang){
-            console.log(lang);
+            //console.log(lang);
             let langArr = ['it','en','es'];
             let error = false;
             for(let i=0; i<langArr.length; i++){
@@ -34,7 +34,7 @@ export default {
             if(error)
                 lang = 'undefined';
             let flag = require(`../../assets/img/flag_${lang}.png`);
-            
+
             return flag;
         }
     },
