@@ -1,10 +1,25 @@
 <template>
     <li>
-        <h2>{{films.title}}</h2>
-        <h3>{{films.original_title}}</h3>
-        <span>
-            <img :src="putFlag(films.original_language)" alt="">
-        </span>
+        <h2 
+            v-if="films.original_title
+        ">
+            FILM <br>
+            {{films.original_title}}
+        </h2>
+        <h2 v-else >
+            SERIES <br>
+            {{films.original_name}}
+        </h2>
+
+        <h3  
+            v-if="films.original_title != ''
+        ">
+            {{films.title}}
+        </h3>
+        <h3 v-else>{{films.name}}</h3>
+
+        <img :src="putFlag(films.original_language)" alt="">
+
         <div class="vote">
             {{films.vote_average}}
             {{films.vote_count}}

@@ -11,13 +11,18 @@ export default {
     data(){
         return{
             inputText: "",
+            prevInput: "",
         }
     },
     methods: {
+      //inizia la "ricerca", controlla l'input se è valido e controlla
+      //se è lo stesso che abbiamo già inserito
       search: function(){
         if(this.inputControl(this.inputText)){
-            //console.log('faccio l emit: ',this.inputText);
-            this.$emit('searchFilm',this.inputText);
+            if(this.prevInput != this.inputText){
+                this.prevInput = this.inputText;
+                this.$emit('searchFilm',this.inputText);
+            }
         }
       },
       inputControl(input){

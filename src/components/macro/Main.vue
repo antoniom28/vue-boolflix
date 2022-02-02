@@ -1,6 +1,6 @@
 <template>
     <main class="container">
-        <Cerca @searchFilm="getFilm" />
+        <Cerca @searchFilm="get" />
         <ul>
             <ListaFilm 
                 v-for="(film,index) in inputFilm"
@@ -21,33 +21,30 @@ export default {
     data(){
         return{
             inputFilm: [],
+            urlType: ['movie','tv'],
         }
     },
     components: {
         ListaFilm,
         Cerca,
     },
-    created: function() {
-        //this.getFilm();
-    },
     methods: {
-        getFilm(input){
-            axios.get('https://api.themoviedb.org/3/search/movie', {
+        async get( input ){
+            this.inputFilm = [],
+            this.type = [],
+            console.log( input );
+            for(let i=0; i<this.urlType.length; i++){
+                let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.urlType[i]}`, input )
+                this.inputFilm.push(...response.data.results); 
+            }
+        },
+        makeAxiosCall( url , input) {
+            return axios.get( url , {
                 params: {
-                api_key: '8de7c27ea07119ebc4c79cbfffb7d231',
-                query : input,
+                    api_key: '8de7c27ea07119ebc4c79cbfffb7d231',
+                    query : input,
                 }
-            })
-            .then((response) => {
-                //console.log(response.data.results);
-                this.inputFilm = response.data.results;
-            })
-            .catch(function (error) {
-                //console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });  
+            });
         },
     },
 }
