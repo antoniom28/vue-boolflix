@@ -23,14 +23,11 @@ export default {
     methods: {
         async get( input ){
             this.inputFilm = [];
-            this.type = []; //è inutile
-           // console.log( input );
             for(let i=0; i<this.urlType.length; i++){
                 let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.urlType[i]}`, input )
                 this.inputFilm.push(...response.data.results); 
+                this.$emit('loadFilm',this.inputFilm);
             }
-            console.log('passo',this.inputFilm);
-            this.$emit('loadFilm',this.inputFilm);
         },
         makeAxiosCall( url , input) {
             return axios.get( url , {

@@ -18,8 +18,6 @@ export default {
         }
     },
     methods: {
-      //inizia la "ricerca", controlla l'input se è valido e controlla
-      //se è lo stesso che abbiamo già inserito
       search: function(){
         if(this.inputControl(this.inputText)){
             if(this.prevInput != this.inputText){
@@ -30,9 +28,7 @@ export default {
       },
       inputControl(input){
           input = input.replace(/\s/g, '');
-          //console.log('controll input : ',input);
           if(input == ''){
-            //console.log('NON VA BENE: ',input);
             this.inputText = '';
             return false;
             }
