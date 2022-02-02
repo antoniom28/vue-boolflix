@@ -81,12 +81,13 @@ li{
     margin: 10px;
 }
 
-img.lang{
-    width: 40px;
+img{
+    width: 100%;
+    max-width: 300px;
 }
 
-.img-null{
-    width: 300px;
+img.lang{
+    width: 40px;
 }
 
 .fa-star{
