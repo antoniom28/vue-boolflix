@@ -39,11 +39,11 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response.data.results);
+                //console.log(response.data.results);
                 this.inputFilm = response.data.results;
             })
             .catch(function (error) {
-                console.log(error);
+                //console.log(error);
             })
             .then(function () {
                 // always executed
