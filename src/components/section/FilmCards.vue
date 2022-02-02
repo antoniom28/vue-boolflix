@@ -127,7 +127,7 @@ li {
     position: absolute;
     top: 3%;
     left: 3%;
-    background-color: red;
+   /* background-color: red;*/
     padding: 10px;
     overflow: hidden;
 }
