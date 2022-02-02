@@ -34,7 +34,12 @@ export default {
 
     img{
         width: 100%;
+        height: 100%;
         box-shadow: 0 0 5px 1px whitesmoke;
+    }
+
+    .image-null{
+      height: unset;
     }
 
     &:hover{
