@@ -1,5 +1,12 @@
 <template>
     <li>
+        <img
+            v-if="films.backdrop_path != null"
+            :src="'https://image.tmdb.org/t/p/w300/' + films.backdrop_path" 
+            :alt="films.backdrop_path"
+        >
+        <img class="img-null" v-else src="../../assets/img/image_null.jpg" alt="">
+
         <h2 
             v-if="films.original_title
         ">
@@ -18,11 +25,15 @@
         </h3>
         <h3 v-else>{{films.name}}</h3>
 
-        <img :src="putFlag(films.original_language)" alt="">
+        <img class="lang" :src="putFlag(films.original_language)" alt="">
 
         <div class="vote">
-            {{films.vote_average}}
-            {{films.vote_count}}
+            <span 
+                v-for="(star) in voteAverage(films.vote_average)"
+                :key="star"
+            >
+                <i class="fas fa-star"></i>
+            </span>
         </div>
     </li>
 </template>
@@ -34,6 +45,13 @@ export default {
         films : Object,
     },
     methods: {
+        voteAverage(vote){
+            console.log(vote,'prima');
+            vote /= 2;
+            vote = Math.ceil(vote);
+            console.log(vote);
+            return vote;
+        },
         putFlag(lang){
             //console.log(lang);
             let langArr = ['it','en','es'];
@@ -63,8 +81,21 @@ li{
     margin: 10px;
 }
 
-img{
+img.lang{
     width: 40px;
 }
 
+.img-null{
+    width: 300px;
+}
+
+.fa-star{
+    color: rgb(202, 172, 0);
+    box-shadow: 
+        0 0 5px 0px gold,
+        inset 0 0 10px 0 gold,
+    ;
+    margin: 0 2px;
+    border-radius: 20px;
+}
 </style>
