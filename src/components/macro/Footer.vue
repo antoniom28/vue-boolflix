@@ -1,7 +1,5 @@
 <template>
     <footer class="container">
-        footer
-        <i class="fas fa-atom"></i>
     </footer>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <main class="container">
         <ul>
-            <ListaFilm 
+            <FilmCards 
                 v-for="(film,index) in inputFilm"
                 :key="index"
                 :films="film"
@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import ListaFilm from '../section/ListaFilm.vue'
+import FilmCards from '../section/FilmCards.vue'
 
 export default {
     name: 'Main',
     components: {
-        ListaFilm,
+        FilmCards,
     },
     props: {
         inputFilm : Array,
@@ -26,5 +26,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
+main{
+    background-color: $bg_sec_color;
+}
 
+ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
 </style>
