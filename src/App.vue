@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header msg="msg header"/>
-    <Main />
+    <Header @loadFilm="loadFilm" />
+    <Main :inputFilm="loadedFilm" />
     <Footer />
   </div>
 </template>
@@ -13,11 +13,21 @@ import Header from './components/macro/Header.vue'
 
 export default {
   name: 'App',
+  data(){
+    return{
+      loadedFilm : [],
+    }
+  },
   components: {
     Main,
     Footer,
     Header,
-  }
+  },
+  methods: {
+    loadFilm(film){
+      this.loadedFilm = film;
+    },
+  },
 }
 </script>
 

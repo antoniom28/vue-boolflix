@@ -1,7 +1,10 @@
 <template>
     <div class="container-cerca">
-        <input v-model="inputText" type="text" name="" id="">
-        <button @click="search" >Cerca</button>
+        <input 
+        @keyup.enter="search" 
+        v-model="inputText" 
+        type="text" name="" id=""
+        >
     </div>
 </template>
 
@@ -40,5 +43,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+input{
+    height: 25px;
+    font-size: 1em;
+}
 </style>

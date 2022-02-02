@@ -5,7 +5,7 @@
             :src="'https://image.tmdb.org/t/p/w300/' + films.backdrop_path" 
             :alt="films.backdrop_path"
         >
-        <img class="img-null" v-else src="../../assets/img/image_null.jpg" alt="">
+        <img class="image-null" v-else src="../../assets/img/image_null.jpg" alt="">
 
         <h2 
             v-if="films.original_title
@@ -46,10 +46,10 @@ export default {
     },
     methods: {
         voteAverage(vote){
-            console.log(vote,'prima');
+           // console.log(vote,'prima');
             vote /= 2;
             vote = Math.ceil(vote);
-            console.log(vote);
+           // console.log(vote);
             return vote;
         },
         putFlag(lang){
@@ -81,9 +81,9 @@ li{
     margin: 10px;
 }
 
-img{
-    width: 100%;
-    max-width: 300px;
+img.image-null{
+    width: 300px;
+    height: 169px;
 }
 
 img.lang{
