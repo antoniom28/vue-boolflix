@@ -72,8 +72,9 @@ export default {
 
 .see-details{
   cursor: pointer;
-  margin-top: 5px;
-  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
 
   &:hover{
     color: $text_color;
@@ -87,7 +88,7 @@ export default {
 
     .overview{
          display: -webkit-box;
-        -webkit-line-clamp: 8;
+        -webkit-line-clamp: 7;
         -webkit-box-orient: vertical;  
         overflow: hidden;
     }
