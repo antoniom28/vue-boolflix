@@ -1,22 +1,57 @@
 <template>
-  <li>
-    <FrontFace :films="films" />
-    <BackFace :films="films" />    
+  <li @mouseenter="showFace(false)" @mouseleave="showFace(true)">
+  
+      <FrontFace 
+      v-if="mainFace"
+      :films="films" />
+    
+      <BackFace 
+        v-if="!details"
+        @showDetails="showDetails"
+        :films="films" 
+      />
+
+      <DetailsFace 
+        v-if="details"
+        @showDetails="showDetails"
+        :id="idFilm"
+      />
   </li>
 </template>
 
 <script>
 import FrontFace from "./FrontFace.vue";
 import BackFace from "./BackFace.vue";
+import DetailsFace from "./DetailsFace.vue";
 
 export default {
   name: "ListaFilm",
+  data(){
+    return{
+      details : false,
+      mainFace : true,
+      idFilm : null,
+    }
+  },
   components: {
     FrontFace,
     BackFace,
+    DetailsFace,
   },
   props: {
     films: Object,
+  },
+  methods: {
+    showDetails(id){
+      //id è -1 se si torna indietro da DetailsFace
+      this.details = !this.details;
+      this.idFilm = id;
+    },
+    showFace(show){
+      if(show)
+        this.details = false;
+      this.mainFace = show;
+    },
   },
 };
 </script>

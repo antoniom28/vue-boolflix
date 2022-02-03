@@ -48,6 +48,7 @@ header{
     justify-content: space-between;
     align-items: center;
     background: $bg_main_color;
+    height: 60px;
     padding: 20px 25px 10px 25px;
     color: $text_color;
 }

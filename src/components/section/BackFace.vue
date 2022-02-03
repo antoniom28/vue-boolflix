@@ -23,6 +23,11 @@
           <h5>overview : &nbsp;</h5>
           <span>{{ films.overview }}</span>
       </div>
+
+      <p class="see-details" @click="showDetails(films.id)">
+        SEE DETAILS
+      </p>
+
     </div>
 </template>
 
@@ -38,6 +43,9 @@ export default {
         Flag,
     },
     methods: {
+    showDetails(id){
+      this.$emit('showDetails',id);
+    },
     getOriginalTitle(film){
         if(film.original_title)
             return film.original_title;
@@ -62,6 +70,16 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
 
+.see-details{
+  cursor: pointer;
+  margin-top: 5px;
+  text-align: center;
+
+  &:hover{
+    color: $text_color;
+  }
+}
+
 .back-face{
     padding: 10px;
     height: 200px;
@@ -69,7 +87,7 @@ export default {
 
     .overview{
          display: -webkit-box;
-        -webkit-line-clamp: 10;
+        -webkit-line-clamp: 8;
         -webkit-box-orient: vertical;  
         overflow: hidden;
     }

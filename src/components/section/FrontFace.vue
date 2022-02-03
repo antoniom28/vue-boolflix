@@ -30,7 +30,6 @@ export default {
 .front-face{
     z-index: 999;
     background-color: $bg_main_color;
-    transition: opacity 0.3s linear;
 
     img{
         width: 100%;
@@ -40,10 +39,6 @@ export default {
 
     .image-null{
       height: unset;
-    }
-
-    &:hover{
-        opacity: 0;
     }
 }
 </style>

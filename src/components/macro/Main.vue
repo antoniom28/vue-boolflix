@@ -28,6 +28,7 @@ export default {
 @import '../../assets/style/partials/variables.scss';
 main{
     background-color: $bg_sec_color;
+    min-height: calc(100vh - 60px);
 }
 
 ul{
