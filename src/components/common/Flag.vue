@@ -1,3 +1,4 @@
+<!-- CHIAMATO DA BACKFACE -->
 <template>
     <div class="flag">
         <img class="lang" :src="putFlag(films.original_language)" alt="" />

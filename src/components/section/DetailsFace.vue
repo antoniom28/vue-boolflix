@@ -1,3 +1,4 @@
+<!-- CHIAMATO DA FILMCARDS -->
 <template>
     <div class="details-face">
         <p @click="showDetails"> 
@@ -30,12 +31,15 @@ export default {
         return{
             info : [],
             genresInfo : [],
+            input : null,
         }
     },
     props: {
         id : Number,
+        inputType: String,
     },
     created: function(){
+        this,this.input = this.inputType.toLowerCase();
         this.getInfo();
         this.getGenres();
     },
@@ -44,13 +48,13 @@ export default {
             this.$emit('showDetails',-1);
         },
         async getInfo(){
-            let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/movie/${this.id}/credits`);
+            let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/${this.input}/${this.id}/credits`);
             let cast = response.data.cast;
             for(let i=0; i<5 && i<cast.length; i++)
                 this.info.push(cast[i]);
         },
         async getGenres(){
-            let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/movie/${this.id}`);
+            let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/${this.input}/${this.id}`);
             let genres = response.data.genres;
             for(let i=0; i<5 && i<genres.length; i++)
                 this.genresInfo.push(genres[i]);

@@ -2,11 +2,11 @@
     <header class="container-header">
         <div>
             <h2>BOOLFLIX</h2>
-            <p class="option all" @click="getInputType('all')">Home</p>
+            <p class="option home" @click="getInputType('home')">Home</p>
             <p class="option movie" @click="getInputType('movie')">Film</p>
             <p class="option tv" @click="getInputType('tv')">Serie TV</p>
         </div>
-        <Cerca @searchFilm="get" />
+        <Cerca v-if="showSearch" @searchFilm="get" />
     </header>
 </template>
 
@@ -20,9 +20,9 @@ export default {
         return{
             inputFilm: [],
             page : 2,
-            urlType: ['movie','tv'],
-            inputType : 'all',
+            inputType : 'home', //da mettere topRated
             prevInput : null,
+            showSearch : false,
         }
     },
     components: {
@@ -37,19 +37,26 @@ export default {
                 }
         },
         getInputType(type){
+            //la parte home è da modificare
+            //in home, al posto di movie ci sarà la categoria topRated
             this.inputType = type;
+            if(type != 'home')
+                this.showSearch = true;
+            else
+                this.showSearch = false;
             this.noFocusOption(this.$el.querySelectorAll(`.option`));
             this.$el.querySelector(`.option.${type}`).style.color="white";
         },
         async get( input, prevInput ){
             this.prevInput = prevInput;
             this.inputFilm = [];
+            if(this.inputType == 'home'){
+                this.$emit('loadFilmApp',this.inputFilm,this.inputType);
+                return;
+            }
+            let response;
             for(let i=0; i<this.page; i++){
-                let response;
-                if(this.inputType == 'all')
-                    response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.urlType[i]}`, input , 1)
-                else
-                    response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.inputType}`, input , i + 1)
+                response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.inputType}`, input , i + 1)
                 this.inputFilm.push(...response.data.results); 
                 this.$emit('loadFilmApp',this.inputFilm,this.inputType);
             }
@@ -77,7 +84,7 @@ h2,p{
     color: grey;
 }
 
-.all{
+.home{
     color: white;
 }
 

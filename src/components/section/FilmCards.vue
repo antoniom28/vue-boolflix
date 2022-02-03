@@ -1,3 +1,4 @@
+<!-- CHIAMATO DA MAIN -->
 <template>
   <li @mouseenter="showFace(false)" @mouseleave="showFace(true)">
   
@@ -15,6 +16,7 @@
         v-if="details"
         @showDetails="showDetails"
         :id="idFilm"
+        :inputType="inputType"
       />
   </li>
 </template>
@@ -31,6 +33,7 @@ export default {
       details : false,
       mainFace : true,
       idFilm : null,
+      type : null,
     }
   },
   components: {
@@ -40,12 +43,14 @@ export default {
   },
   props: {
     films: Object,
+    inputType: String,
   },
   methods: {
     showDetails(id){
       //id è -1 se si torna indietro da DetailsFace
       this.details = !this.details;
       this.idFilm = id;
+      //devo aggiungere il type
     },
     showFace(show){
       if(show)
