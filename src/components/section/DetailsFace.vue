@@ -1,9 +1,9 @@
 <!-- CHIAMATO DA FILMCARDS -->
 <template>
     <div class="details-face">
-        <p @click="showDetails"> 
+        <div @click="showDetails"> 
             <i class="fas fa-long-arrow-alt-left"></i> 
-        </p>
+        </div>
         <h4>CAST : </h4>
         <span 
             v-for="(element,index) in info"
@@ -88,6 +88,7 @@ span{
 .details-face{
     padding: 10px;
 }
+
 h4{
     margin-top: 10px;
     margin-bottom: 5px;

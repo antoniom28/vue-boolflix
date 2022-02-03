@@ -54,7 +54,6 @@ export default {
       //id è -1 se si torna indietro da DetailsFace
       this.details = !this.details;
       this.idFilm = id;
-      //devo aggiungere il type
     },
     showFace(show){
       if(show)
@@ -67,14 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
-
-[class*="-face"] {
-    width: 94%;
-    height: 94%;
-    position: absolute;
-    top: 3%;
-    left: 3%;
-}
 
 li {
   background-color: $bg_main_color;

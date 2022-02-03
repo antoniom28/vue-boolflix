@@ -2,9 +2,9 @@
     <header class="container-header">
         <div>
             <h2>BOOLFLIX</h2>
-            <p class="option home" @click="getInputType('home')">Home</p>
-            <p class="option movie" @click="getInputType('movie')">Film</p>
-            <p class="option tv" @click="getInputType('tv')">Serie TV</p>
+            <p class="menuOption home" @click="getInputType('home')">Home</p>
+            <p class="menuOption movie" @click="getInputType('movie')">Film</p>
+            <p class="menuOption tv" @click="getInputType('tv')">Serie TV</p>
         </div>
         <Cerca v-if="showSearch" @searchFilm="get" />
     </header>
@@ -44,8 +44,8 @@ export default {
                 this.showSearch = true;
             else
                 this.showSearch = false;
-            this.noFocusOption(this.$el.querySelectorAll(`.option`));
-            this.$el.querySelector(`.option.${type}`).style.color="white";
+            this.noFocusOption(this.$el.querySelectorAll(`.menuOption`));
+            this.$el.querySelector(`.menuOption.${type}`).style.color="white";
         },
         async get( input, prevInput ){
             this.prevInput = prevInput;
@@ -76,11 +76,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
-h2,p{
-    display: inline-block;
-}
 
-.option{
+.menuOption{
     color: grey;
 }
 

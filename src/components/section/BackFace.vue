@@ -84,7 +84,6 @@ export default {
 
 .back-face{
     padding: 10px;
-    height: 200px;
     overflow: hidden;
 
     .overview{
