@@ -29,6 +29,10 @@
                 :films="film"
                 :inputType="inputType"
             />
+
+            <div v-if="filterFilm.length == 0" class="empty">
+                Cerca un Titolo o Applica un filtro per mostrare i risultati!!
+            </div>
         </ul>
     </main>
 </template>
@@ -121,6 +125,12 @@ ul{
     margin-top: 5px;
     text-align: center;
     color: white;
+}
+
+.empty{
+    color: white;
+    font-size: 1.5em;
+    margin: 20px;
 }
 
 .select-genre{
