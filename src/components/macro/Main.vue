@@ -1,24 +1,30 @@
 <template>
     <main class="container">
         <ul>
-            <h2 v-if="getInput" class="full-w">
-                Ricerca per : {{getInput}} 
-                <i class="fas fa-filter"></i>
-                <select v-model="option" 
+            <div v-if="getInput" class="select-genre">
+                <span @click="showFilter"><i class="fas fa-filter"></i></span>
+                <select v-model="option" v-if="filterBox"
                 @change="filter"
                 name="filter-genre" id="filter-genre">
+                    <option value="">
+                        All
+                    </option>
                     <option 
-                        :value="opt.name"
+                        :value="opt.id"
                         v-for="(opt,index) in optionArr"
                         :key="index"
                     >
                         {{opt.name}}
                     </option>
                 </select>
+            </div>
+
+            <h2 v-if="getInput" class="full-w">
+                Ricerca per : {{getInput}} 
             </h2>
 
             <FilmCards 
-                v-for="(film,index) in inputFilm"
+                v-for="(film,index) in filterFilm"
                 :key="index"
                 :films="film"
                 :inputType="inputType"
@@ -37,6 +43,8 @@ export default {
         return{
             option: "",
             optionArr : [],
+            filterSelect : "",
+            filterBox : false,
         }
     },
     components: {
@@ -54,11 +62,29 @@ export default {
                 value = this.inputType;
             }
             return value;
-        }
+        },
+        filterFilm: function(){            
+            let film = [];
+            if(this.filterSelect != '' && this.filterSelect){
+            for(let i=0; i<this.inputFilm.length; i++){
+                for(let j=0; j<this.inputFilm[i].genre_ids.length; j++){
+                    if(this.filterSelect == this.inputFilm[i].genre_ids[j])
+                        film.push(this.inputFilm[i]);
+                }
+            }
+            //console.log('filtrati',film);
+            return film;
+            } else
+                return this.inputFilm;
+        },
     },
     methods: {
+        showFilter(){
+            console.log('fi');
+            this.filterBox = !this.filterBox;
+        },
         filter(){
-            console.log(this.option);
+            this.filterSelect = this.option;
         },
         async getGenre(){
             let input = this.inputType.toLowerCase();
@@ -95,5 +121,23 @@ ul{
     margin-top: 5px;
     text-align: center;
     color: white;
+}
+
+.select-genre{
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+
+    .fa-filter{
+        font-size: 30px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    select{
+        margin-left: 6px;
+        border-radius: 10px;
+        width: 150px;
+    }
 }
 </style>

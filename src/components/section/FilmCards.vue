@@ -1,6 +1,9 @@
 <!-- CHIAMATO DA MAIN -->
 <template>
-  <li @mouseenter="showFace(false)" @mouseleave="showFace(true)">
+  <li 
+    @mouseenter="showFace(false)" 
+    @mouseleave="showFace(true)"
+    >
   
       <FrontFace 
       v-if="mainFace"
@@ -44,6 +47,7 @@ export default {
   props: {
     films: Object,
     inputType: String,
+    filterSelect : String,
   },
   methods: {
     showDetails(id){

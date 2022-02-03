@@ -2,7 +2,9 @@
   <div id="app">
     <Header @loadFilmApp="loadFilm" />
     <Main :inputFilm="loadedFilm" 
-    :inputType="inputType" />
+    :inputType="inputType"
+     />
+    
     <Footer />
   </div>
 </template>
