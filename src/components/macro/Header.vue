@@ -1,6 +1,11 @@
 <template>
     <header class="container-header">
-        <h2>BOOLFLIX</h2>
+        <div>
+            <h2>BOOLFLIX</h2>
+            <p class="option all" @click="getInputType('all')">Home</p>
+            <p class="option movie" @click="getInputType('movie')">Film</p>
+            <p class="option tv" @click="getInputType('tv')">Serie TV</p>
+        </div>
         <Cerca @searchFilm="get" />
     </header>
 </template>
@@ -14,26 +19,47 @@ export default {
     data(){
         return{
             inputFilm: [],
+            page : 2,
             urlType: ['movie','tv'],
+            inputType : 'all',
+            prevInput : null,
         }
     },
     components: {
         Cerca,
     },
     methods: {
-        async get( input ){
+        noFocusOption(focus){
+            for(let i=0; i<focus.length; i++)
+                focus[i].style.color="grey";
+            if(this.prevInput){
+                this.get(this.prevInput,this.prevInput);
+                }
+        },
+        getInputType(type){
+            this.inputType = type;
+            this.noFocusOption(this.$el.querySelectorAll(`.option`));
+            this.$el.querySelector(`.option.${type}`).style.color="white";
+        },
+        async get( input, prevInput ){
+            this.prevInput = prevInput;
             this.inputFilm = [];
-            for(let i=0; i<this.urlType.length; i++){
-                let response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.urlType[i]}`, input )
+            for(let i=0; i<this.page; i++){
+                let response;
+                if(this.inputType == 'all')
+                    response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.urlType[i]}`, input , 1)
+                else
+                    response = await this.makeAxiosCall( `https://api.themoviedb.org/3/search/${this.inputType}`, input , i + 1)
                 this.inputFilm.push(...response.data.results); 
-                this.$emit('loadFilm',this.inputFilm);
+                this.$emit('loadFilmApp',this.inputFilm,this.inputType);
             }
         },
-        makeAxiosCall( url , input) {
+        makeAxiosCall( url , input, page) {
             return axios.get( url , {
                 params: {
                     api_key: '8de7c27ea07119ebc4c79cbfffb7d231',
                     query : input,
+                    page : page,
                 }
             });
         },
@@ -43,6 +69,23 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
+h2,p{
+    display: inline-block;
+}
+
+.option{
+    color: grey;
+}
+
+.all{
+    color: white;
+}
+
+p{
+    margin: 0 15px;
+    cursor: pointer;
+}
+
 header{
     display: flex;
     justify-content: space-between;
@@ -50,6 +93,9 @@ header{
     background: $bg_main_color;
     height: 60px;
     padding: 20px 25px 10px 25px;
-    color: $text_color;
+
+    h2{
+        color: $text_color;
+    }
 }
 </style>

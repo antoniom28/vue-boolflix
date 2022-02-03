@@ -22,7 +22,7 @@ export default {
         if(this.inputControl(this.inputText)){
             if(this.prevInput != this.inputText){
                 this.prevInput = this.inputText;
-                this.$emit('searchFilm',this.inputText);
+                this.$emit('searchFilm',this.inputText, this.prevInput);
             }
         }
       },

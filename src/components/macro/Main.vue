@@ -1,6 +1,7 @@
 <template>
     <main class="container">
         <ul>
+            <h2 class="full-w">Ricerca per : {{inputType}}</h2>
             <FilmCards 
                 v-for="(film,index) in inputFilm"
                 :key="index"
@@ -20,6 +21,7 @@ export default {
     },
     props: {
         inputFilm : Array,
+        inputType : String,
     },
 }
 </script>
@@ -36,5 +38,11 @@ ul{
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: flex-start;
+}
+
+.full-w{
+    width: 100%;
+    text-align: center;
+    color: white;
 }
 </style>

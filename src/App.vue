@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Header @loadFilm="loadFilm" />
-    <Main :inputFilm="loadedFilm" />
+    <Header @loadFilmApp="loadFilm" />
+    <Main :inputFilm="loadedFilm" 
+    :inputType="inputType" />
     <Footer />
   </div>
 </template>
@@ -16,6 +17,7 @@ export default {
   data(){
     return{
       loadedFilm : [],
+      inputType : null,
     }
   },
   components: {
@@ -24,8 +26,9 @@ export default {
     Header,
   },
   methods: {
-    loadFilm(film){
+    loadFilm(film,type){
       this.loadedFilm = film;
+      this.inputType = type.toUpperCase();
     },
   },
 }
