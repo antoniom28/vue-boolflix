@@ -8,19 +8,29 @@
         :inputType="inputType"
       />
 
-      <!-- qua ci stava la funz in computed getinput-->
-      <h2 v-if="this.inputType" class="full-w">
+      <h2 v-if="this.inputType && this.inputType != 'HOME'" class="full-w">
         Ricerca per : {{ this.inputType }}
       </h2>
 
-      <FilmCards
-        v-for="(film, index) in filterFilm"
-        :key="index"
-        :films="film"
-        :inputType="inputType"
+      <Home
+        v-show="inputType == '' || inputType == null || inputFilm.length == 0"
       />
 
-      <div v-if="filterFilm.length == 0" class="empty">
+      <ul v-show="inputType != '' && inputType != null">
+        <FilmCards
+          v-for="(film, index) in filterFilm"
+          :key="index"
+          :films="film"
+          :inputType="inputType"
+        />
+      </ul>
+
+      <div
+        v-show="
+          filterFilm.length == 0 && (inputType == '' || inputType == null)
+        "
+        class="empty"
+      >
         Cerca un Titolo o Applica un filtro per mostrare i risultati!!
       </div>
     </ul>
@@ -29,27 +39,28 @@
 
 <script>
 import FilmCards from "../section/FilmCards.vue";
+import Home from "../section/Home.vue";
 import Select from "../common/Select.vue";
 
 export default {
   name: "Main",
   data() {
     return {
-      optionArr: [], //devo passarlo in props
-      filterSelect: 0, //devo passarlo in props
+      optionArr: [],
+      filterSelect: 0,
     };
   },
   components: {
     FilmCards,
     Select,
+    Home,
   },
   props: {
     inputFilm: Array,
-    inputType: String, //devo passarlo in props
+    inputType: String,
   },
   computed: {
     filterFilm: function () {
-      //deve rimanere qua
       let film = [];
       if (this.filterSelect != "" && this.filterSelect) {
         for (let i = 0; i < this.inputFilm.length; i++) {

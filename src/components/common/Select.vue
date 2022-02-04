@@ -9,7 +9,7 @@
       id="filter-genre"
     >
       <option :value="0">All</option>
-      <option :value="opt.id" v-for="(opt, index) in optionArro" :key="index">
+      <option :value="opt.id" v-for="(opt, index) in optionList" :key="index">
         {{ opt.name }}
       </option>
     </select>
@@ -30,8 +30,8 @@ export default {
     return {
       option: "",
       filterBox: false,
-      filterSelecto: this.filterSelect,
-      optionArro: this.optionArr,
+      filterSlct: this.filterSelect,
+      optionList: this.optionArr,
     };
   },
   computed: {
@@ -50,7 +50,7 @@ export default {
       let response = await this.makeAxiosCall(
         `https://api.themoviedb.org/3/genre/${input}/list`
       );
-      this.optionArro = response.data.genres;
+      this.optionList = response.data.genres;
     },
     makeAxiosCall(url) {
       return axios.get(url, {
@@ -63,8 +63,8 @@ export default {
       this.filterBox = !this.filterBox;
     },
     filter() {
-      this.filterSelecto = this.option; //deve fare l'emit
-      this.$emit("getFilterSelect", this.filterSelecto);
+      this.filterSlct = this.option; //deve fare l'emit
+      this.$emit("getFilterSelect", this.filterSlct);
     },
   },
 };

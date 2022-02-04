@@ -1,48 +1,50 @@
 <!-- CHIAMATO DA HEADER -->
 <template>
-    <div class="container-cerca">
-        <input 
-        @keyup.enter="search" 
-        v-model="inputText" 
-        type="text" name="" id=""
-        >
-    </div>
+  <div class="container-cerca">
+    <input
+      @keyup.enter="search"
+      v-model="inputText"
+      type="text"
+      name=""
+      id=""
+    />
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Cerca",
-    data(){
-        return{
-            inputText: "",
-            prevInput: "",
+  name: "Cerca",
+  data() {
+    return {
+      inputText: "",
+      prevInput: "", //evita di chiamare l'axios se spammo l'enter
+    };
+  },
+  methods: {
+    search: function () {
+      if (this.inputControl(this.inputText)) {
+        if (this.prevInput != this.inputText) {
+          this.prevInput = this.inputText;
+          this.$emit("searchFilm", this.inputText);
         }
+      }
     },
-    methods: {
-      search: function(){
-        if(this.inputControl(this.inputText)){
-            if(this.prevInput != this.inputText){
-                this.prevInput = this.inputText;
-                this.$emit('searchFilm',this.inputText, this.prevInput);
-            }
-        }
-      },
-      inputControl(input){
-          input = input.replace(/\s/g, '');
-          if(input == ''){
-            this.inputText = '';
-            return false;
-            }
-          return true;
-      },
+    inputControl(input) {
+      input = input.replace(/\s/g, "");
+      if (input == "") {
+        this.inputText = "";
+        return false;
+      }
+      return true;
     },
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-input{
-    height: 25px;
-    width: 150px;
-    font-size: 1em;
+input {
+  height: 25px;
+  width: 150px;
+  font-size: 1em;
 }
 </style>
