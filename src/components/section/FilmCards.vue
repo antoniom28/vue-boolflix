@@ -80,4 +80,13 @@ li{
   width: 280px;
   min-height: 400px;
 } 
+
+
+li.home-page{
+  margin: 0;
+  width: 320px;
+  min-height: 440px;
+}
+
+
 </style>
