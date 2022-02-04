@@ -12,34 +12,34 @@
         Ricerca per : {{ this.inputType }}
       </h2>
 
-      <Home
-        v-show="inputType == '' || inputType == null || inputFilm.length == 0"
+    <Home v-show="showHome()" />
+
+     <Movie 
+        v-show="inputType == 'MOVIE'"
+        :filterSelect="filterSelect"
+        :inputText="inputText"
+        :inputType="inputType"
       />
 
-      <ul v-show="inputType != '' && inputType != null">
-        <FilmCards
-          v-for="(film, index) in filterFilm"
-          :key="index"
-          :films="film"
-          :inputType="inputType"
-        />
-      </ul>
-
-      <div
-        v-show="
-          filterFilm.length == 0 && (inputType == '' || inputType == null)
-        "
-        class="empty"
-      >
+      <SerieTv 
+        v-show="inputType == 'TV'"
+        :filterSelect="filterSelect"
+        :inputText="inputText"
+        :inputType="inputType"
+      />
+    <!--
+      <div v-show="filterError()" class="empty">
         Cerca un Titolo o Applica un filtro per mostrare i risultati!!
-      </div>
+        {{ inputType }}
+      </div> -->
     </ul>
   </main>
 </template>
 
 <script>
-import FilmCards from "../section/FilmCards.vue";
 import Home from "../section/Home.vue";
+import Movie from "../section/Movie.vue";
+import SerieTv from "../section/SerieTv.vue";
 import Select from "../common/Select.vue";
 
 export default {
@@ -51,29 +51,34 @@ export default {
     };
   },
   components: {
-    FilmCards,
     Select,
     Home,
+    Movie,
+    SerieTv,
   },
   props: {
-    inputFilm: Array,
-    inputType: String,
-  },
-  computed: {
-    filterFilm: function () {
-      let film = [];
-      if (this.filterSelect != "" && this.filterSelect) {
-        for (let i = 0; i < this.inputFilm.length; i++) {
-          for (let j = 0; j < this.inputFilm[i].genre_ids.length; j++) {
-            if (this.filterSelect == this.inputFilm[i].genre_ids[j])
-              film.push(this.inputFilm[i]);
-          }
-        }
-        return film;
-      } else return this.inputFilm;
-    },
+    inputText: String,
+    inputType: String, 
   },
   methods: {
+    showHome() {
+      if (
+        this.inputType == "" ||
+        this.inputType == null ||
+        this.inputType == "HOME"
+      )
+        return true;
+      return false;
+    },
+    filterError() {
+      if (
+       // this.filterFilm.length == 0 &&
+        this.inputType != "HOME" &&
+        this.inputType != null
+      )
+        return true;
+      return false;
+    },
     getFilterSelect(filter) {
       this.filterSelect = filter;
     },

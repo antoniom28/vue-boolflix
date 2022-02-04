@@ -11,14 +11,12 @@
 </template>
 
 <script>
-import axios from "axios";
 import Cerca from "../common/Cerca.vue";
 
 export default {
   name: "Header",
   data() {
     return {
-      inputFilm: [],
       page: 2,
       inputType: "home",
       prevInputType: null, //evita la chiamata su axios allo spam sulla categoria
@@ -35,7 +33,7 @@ export default {
 
       if (this.inputText != null)
         if (this.prevInputType != this.inputType)
-          this.get(this.inputText, null);
+          this.get(this.inputText);
     },
     getInputType(type) {
       this.prevInputType = this.inputType;
@@ -45,34 +43,9 @@ export default {
       this.noFocusOption(this.$el.querySelectorAll(`.menuOption`));
       this.$el.querySelector(`.menuOption.${type}`).style.color = "white";
     },
-    async get(input) {
+    get(input) {
       this.inputText = input;
-      this.inputFilm = [];
-      if (this.inputType == "home") {
-        console.log("ritorno, home");
-        this.$emit("loadFilmApp", this.inputFilm, this.inputType);
-        return;
-      }
-      let response;
-      for (let i = 0; i < this.page; i++) {
-        response = await this.makeAxiosCall(
-          `https://api.themoviedb.org/3/search/${this.inputType}`,
-          input,
-          i + 1
-        );
-        this.inputFilm.push(...response.data.results);
-        this.$emit("loadFilmApp", this.inputFilm, this.inputType);
-      }
-    },
-    makeAxiosCall(url, input, page) {
-      console.log("call of axos from header");
-      return axios.get(url, {
-        params: {
-          api_key: "8de7c27ea07119ebc4c79cbfffb7d231",
-          query: input,
-          page: page,
-        },
-      });
+      this.$emit("loadFilmApp", this.inputText, this.inputType);
     },
   },
 };
