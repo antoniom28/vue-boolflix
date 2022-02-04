@@ -8,7 +8,10 @@
         :inputType="inputType"
       />
 
-      <h2 v-if="this.inputType && this.inputType != 'HOME'" class="full-w">
+      <h2 
+        v-if="this.inputType && this.inputType != 'HOME'" 
+        class="full-w"
+      >
         Ricerca per : {{ this.inputType }}
       </h2>
 

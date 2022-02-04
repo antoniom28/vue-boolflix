@@ -1,13 +1,26 @@
 <template>
-  <ul v-if="getInputText != null" id="movie">
+  <ul class="section-list" v-show="getInputText != null" id="tv">
     <FilmCards
-        v-for="(film, index) in filterFilm"
-        :key="index"
-        :films="film"
-        :inputType="inputType"
+      v-for="(film, index) in filterFilm"
+      :key="index"
+      :films="film"
+      :inputType="inputType"
     />
 
-    <FilterEmpty v-if="filterError"/>
+    <FilterEmpty v-if="filterError" />
+
+    <div v-else class="full-w load-more">
+      <span 
+        v-if="!lastPage" 
+        @click="loadMore()"
+      >
+        LOAD MORE
+        <i class="fas fa-angle-double-down"></i>
+      </span>
+      <span v-else>
+        Non ci sono altre Serie TV corrispondenti alla tua ricerca!
+      </span>
+    </div>
   </ul>
 </template>
 
@@ -21,7 +34,11 @@ export default {
   data() {
     return {
       inputFilm: [],
-      filterError : false,
+      filterError: false,
+      page: 1,
+      prevInputText: "",
+      lastPage : false,
+      totalPage : 2,
     };
   },
   components: {
@@ -29,47 +46,70 @@ export default {
     FilterEmpty,
   },
   props: {
-      filterSelect : Number,
-      inputText: String,
-      inputType : String,
+    filterSelect: Number,
+    inputText: String,
+    inputType: String,
   },
   computed: {
-      getInputText(){
-          if(this.inputText != "" && this.inputText != null)
+    getInputText() {
+      this.updateInputText();
+
+      if (this.inputText != "" && this.inputText != null) 
+        if (this.page == 1) 
           this.getFilm();
-          return this.inputText;
-      },
-      filterFilm: function () {
-      if(this.getInputText == '' || this.getInputText == null)
+      return this.inputText;
+    },
+    filterFilm: function () {
+      if (this.getInputText == "" || this.getInputText == null) 
         return;
       let film = [];
+      if (this.filterSelect == 0)
+         this.filterError = false;
       if (this.filterSelect != "" && this.filterSelect) {
-        for (let i = 0; i < this.inputFilm.length; i++) {
-          for (let j = 0; j < this.inputFilm[i].genre_ids.length; j++) {
+        for (let i = 0; i < this.inputFilm.length; i++) 
+          for (let j = 0; j < this.inputFilm[i].genre_ids.length; j++) 
             if (this.filterSelect == this.inputFilm[i].genre_ids[j])
               film.push(this.inputFilm[i]);
-          }
-        }
-        
-        if(film.length == 0)
-            this.filterError = true;
-        else 
-            this.filterError = false;
-            
+
+        if (film.length == 0)
+          this.filterError = true;
+        else
+          this.filterError = false;
+
         return film;
-      } else return this.inputFilm;
+      } else 
+        return this.inputFilm;
     },
   },
   methods: {
-      async getFilm() {
-      this.inputFilm = [];
+    updateInputText() {
+      if (this.prevInputText != this.inputText) {
+        this.prevInputText = this.inputText;
+        this.page = 1;
+      }
+    },
+    loadMore() {
+      this.page++;
+      this.getFilm();
+    },
+    async getFilm() {
+      if (this.page == 1) 
+        this.inputFilm = [];
+      if(this.totalPage < this.page){
+        this.lastPage = true;
+        return;
+      } else
+        this.lastPage = false;
       let response = await this.makeAxiosCall(
-          `https://api.themoviedb.org/3/search/tv`,this.inputText,1
-        );
-        this.inputFilm.push(...response.data.results);
+        `https://api.themoviedb.org/3/search/tv`,
+        this.inputText,
+        this.page
+      );
+      this.totalPage = response.data.total_pages;
+      this.inputFilm.push(...response.data.results);
     },
     makeAxiosCall(url, input, page) {
-      console.log("call of axos from TV");
+      console.log("call of axos from tv");
       return axios.get(url, {
         params: {
           api_key: "8de7c27ea07119ebc4c79cbfffb7d231",
@@ -83,10 +123,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div v-if="getInput" class="select-genre">
-    <span @click="showFilter"><i class="fas fa-filter"></i></span>
+    <span @click="showFilter">
+      <i class="fas fa-filter"></i>
+    </span>
     <select
       v-model="option"
       v-if="filterBox"
@@ -9,7 +11,10 @@
       id="filter-genre"
     >
       <option :value="0">All</option>
-      <option :value="opt.id" v-for="(opt, index) in optionList" :key="index">
+      <option 
+      :value="opt.id" 
+      v-for="(opt, index) in optionList" :key="index"
+      >
         {{ opt.name }}
       </option>
     </select>

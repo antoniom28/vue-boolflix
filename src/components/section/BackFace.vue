@@ -15,7 +15,10 @@
 
       <div class="vote">
         <h5>Voto : &nbsp;</h5>
-        <span v-for="(star,index) in voteAverage(films.vote_average)" :key="index">
+        <span 
+          v-for="(star,index) in voteAverage(films.vote_average)" 
+          :key="index"
+        >
           <i class="fas fa-star"></i>
         </span>
       </div>

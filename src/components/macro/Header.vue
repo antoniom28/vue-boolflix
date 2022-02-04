@@ -2,9 +2,9 @@
   <header class="container-header">
     <div>
       <h2>BOOLFLIX</h2>
-      <p class="menuOption home" @click="getInputType('home')">Home</p>
-      <p class="menuOption movie" @click="getInputType('movie')">Film</p>
-      <p class="menuOption tv" @click="getInputType('tv')">Serie TV</p>
+      <p class="menuOption home" @click="getInputType('home')"> Home </p>
+      <p class="menuOption movie" @click="getInputType('movie')"> Film </p>
+      <p class="menuOption tv" @click="getInputType('tv')"> Serie TV </p>
     </div>
     <Cerca v-if="showSearch" @searchFilm="get" />
   </header>

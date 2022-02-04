@@ -45,3 +45,21 @@ img.lang {
     text-align: center;
     color: white;
   }
+
+
+  .load-more{
+    font-size: 1.5em;
+    height: 50px;
+    margin-top: 10px;
+  
+    span{
+      cursor: pointer;
+    }
+  }
+
+  ul.section-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
