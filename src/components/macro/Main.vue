@@ -14,6 +14,11 @@
 
       <Home v-show="showHome()" />
 
+      <!-- movie e serietv sono praticamente uguali
+      ma con url diversa, in questo modo l'axios in movie e tv viene
+      chiamato solo quando scriviamo in input, e non sullo switch 
+      o sul cambio filtro
+      -->
       <Movie 
         v-show="inputType == 'MOVIE'"
         :filterSelect="filterSelect"
