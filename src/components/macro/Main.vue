@@ -83,12 +83,4 @@ main {
   background-color: $bg_sec_color;
   min-height: calc(100vh - 60px);
 }
-
-.full-w {
-  width: 100%;
-  margin-top: 5px;
-  text-align: center;
-  color: white;
-}
-
 </style>
