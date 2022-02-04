@@ -38,7 +38,7 @@ export default {
       page: 1,
       prevInputText: "",
       lastPage : false,
-      totalPage : 2,
+      totalPage : 1,
     };
   },
   components: {
@@ -97,14 +97,17 @@ export default {
         this.inputFilm = [];
       if(this.totalPage < this.page){
         this.lastPage = true;
-        return;
+        if(this.totalPage != 0)
+          return;
       } else
         this.lastPage = false;
+        console.log('PROVO axios');
       let response = await this.makeAxiosCall(
         `https://api.themoviedb.org/3/search/movie`,
         this.inputText,
         this.page
       );
+  
       this.totalPage = response.data.total_pages;
       this.inputFilm.push(...response.data.results);
     },

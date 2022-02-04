@@ -38,7 +38,7 @@ export default {
       page: 1,
       prevInputText: "",
       lastPage : false,
-      totalPage : 2,
+      totalPage : 1,
     };
   },
   components: {
@@ -97,6 +97,7 @@ export default {
         this.inputFilm = [];
       if(this.totalPage < this.page){
         this.lastPage = true;
+        if(this.totalPage != 0)
         return;
       } else
         this.lastPage = false;
