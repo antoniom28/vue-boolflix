@@ -33,7 +33,10 @@ export default {
     inputType: String,
   },
   created: function () {
-    this.input = this.inputType.toLowerCase();
+    if(!this.inputType)
+      this.input = 'movie';
+    else
+      this.input = this.inputType.toLowerCase();
     this.getInfo();
     this.getGenres();
   },

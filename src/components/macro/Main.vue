@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <ul>
+    <div>
       <Select
         :optionArr="optionArr"
         :filterSelect="filterSelect"
@@ -12,9 +12,9 @@
         Ricerca per : {{ this.inputType }}
       </h2>
 
-    <Home v-show="showHome()" />
+      <Home v-show="showHome()" />
 
-     <Movie 
+      <Movie 
         v-show="inputType == 'MOVIE'"
         :filterSelect="filterSelect"
         :inputText="inputText"
@@ -27,12 +27,7 @@
         :inputText="inputText"
         :inputType="inputType"
       />
-    <!--
-      <div v-show="filterError()" class="empty">
-        Cerca un Titolo o Applica un filtro per mostrare i risultati!!
-        {{ inputType }}
-      </div> -->
-    </ul>
+    </div>
   </main>
 </template>
 
@@ -70,15 +65,6 @@ export default {
         return true;
       return false;
     },
-    filterError() {
-      if (
-       // this.filterFilm.length == 0 &&
-        this.inputType != "HOME" &&
-        this.inputType != null
-      )
-        return true;
-      return false;
-    },
     getFilterSelect(filter) {
       this.filterSelect = filter;
     },
@@ -93,13 +79,6 @@ main {
   min-height: calc(100vh - 60px);
 }
 
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
-
 .full-w {
   width: 100%;
   margin-top: 5px;
@@ -107,9 +86,4 @@ ul {
   color: white;
 }
 
-.empty {
-  color: white;
-  font-size: 1.5em;
-  margin: 20px;
-}
 </style>

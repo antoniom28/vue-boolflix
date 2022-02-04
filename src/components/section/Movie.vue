@@ -6,11 +6,14 @@
         :films="film"
         :inputType="inputType"
     />
+
+    <FilterEmpty v-if="filterError"/>
   </ul>
 </template>
 
 <script>
 import FilmCards from "../section/FilmCards.vue";
+import FilterEmpty from "../common/FilterEmpty.vue";
 import axios from "axios";
 
 export default {
@@ -18,10 +21,12 @@ export default {
   data() {
     return {
       inputFilm: [],
+      filterError : false,
     };
   },
   components: {
     FilmCards,
+    FilterEmpty,
   },
   props: {
       filterSelect : Number,
@@ -45,8 +50,15 @@ export default {
               film.push(this.inputFilm[i]);
           }
         }
+
+        if(film.length == 0)
+            this.filterError = true;
+        else 
+            this.filterError = false;
+        
         return film;
       } else return this.inputFilm;
+      
     },
   },
   methods: {
