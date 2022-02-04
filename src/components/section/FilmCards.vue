@@ -1,6 +1,7 @@
 <!-- CHIAMATO DA MAIN -->
 <template>
   <li 
+    :class="homePage"
     @mouseenter="showFace(false)" 
     @mouseleave="showFace(true)"
     >
@@ -48,6 +49,7 @@ export default {
     films: Object,
     inputType: String,
     filterSelect : String,
+    homePage : String,
   },
   methods: {
     showDetails(id){
@@ -67,16 +69,15 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/style/partials/variables.scss';
 
-li {
+li{
+  position: relative;
   background-color: $bg_main_color;
   color: white;
   border: 2px ridge white;
   border-radius: 5px;
   list-style: none;
   margin: 10px;
-  width: 230px;
-  height: 342px;
-  position: relative;
-}
- 
+  width: 280px;
+  min-height: 400px;
+} 
 </style>

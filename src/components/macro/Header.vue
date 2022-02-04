@@ -1,10 +1,12 @@
 <template>
   <header class="container-header">
-    <div>
+    <div class="nav-left">
       <h2>BOOLFLIX</h2>
-      <p class="menuOption home" @click="getInputType('home')"> Home </p>
-      <p class="menuOption movie" @click="getInputType('movie')"> Film </p>
-      <p class="menuOption tv" @click="getInputType('tv')"> Serie TV </p>
+      <div>
+        <p class="menuOption home" @click="getInputType('home')"> Home </p>
+        <p class="menuOption movie" @click="getInputType('movie')"> Film </p>
+        <p class="menuOption tv" @click="getInputType('tv')"> Serie TV </p>
+      </div>
     </div>
     <Cerca v-if="showSearch" @searchFilm="get" />
   </header>
@@ -67,13 +69,35 @@ p {
   cursor: pointer;
 }
 
+@media screen and (min-width:601px) {
+  header{
+    flex-direction:row!important;
+  }
+
+  h2, div{
+    margin: 0!important;
+  }
+  
+  .nav-left{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+h2, div{
+    margin: 8px;
+}
+
 header {
   display: flex;
   justify-content: space-between;
+  text-align: center;
   align-items: center;
   background: $bg_main_color;
-  height: 60px;
+  min-height: 60px;
   padding: 20px 25px 10px 25px;
+  flex-direction:column;
 
   h2 {
     color: $text_color;

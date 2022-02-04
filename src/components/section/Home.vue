@@ -4,6 +4,7 @@
       v-for="(film, index) in ratedFilm" 
       :key="index" 
       :films="film" 
+      home-page="home-page"
     />
 
     <div class="full-w load-more">

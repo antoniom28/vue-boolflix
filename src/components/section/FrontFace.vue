@@ -3,16 +3,20 @@
     <div class="front-face">
       <img
         v-if="films.poster_path != null"
-        :src="'https://image.tmdb.org/t/p/w342/' + films.poster_path"
+        :src="'https://image.tmdb.org/t/p/w500/' + films.poster_path"
         :alt="films.poster_path"
       />
 
+      <div v-else>
+      PREVIEW NOT AVAILABLE
       <img
-        v-else
         class="image-null"
         src="../../assets/img/image_null.jpg"
         alt=""
       />
+      PREVIEW NOT AVAILABLE
+      </div>
+     
     </div>
 </template>
 
