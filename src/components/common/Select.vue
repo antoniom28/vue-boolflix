@@ -130,7 +130,7 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 160px;
+    height: 220px;
     justify-content: center;
     align-items: flex-start;
   }
