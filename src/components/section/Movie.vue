@@ -46,7 +46,7 @@ export default {
     FilterEmpty,
   },
   props: {
-    filterSelect: Number,
+    filterSelect: Array,
     inputText: String,
     inputType: String,
   },
@@ -63,13 +63,19 @@ export default {
       if (this.getInputText == "" || this.getInputText == null) 
         return;
       let film = [];
-      if (this.filterSelect == 0) 
+      
+      if (this.filterSelect.length == 0) 
         this.filterError = false;
-      if (this.filterSelect != "" && this.filterSelect) {
+      if (this.filterSelect.length!= 0) {
         for (let i = 0; i < this.inputFilm.length; i++)
           for (let j = 0; j < this.inputFilm[i].genre_ids.length; j++)
-            if (this.filterSelect == this.inputFilm[i].genre_ids[j])
+            for (let z = 0; z < this.filterSelect.length; z++)
+            if (this.filterSelect[z] == this.inputFilm[i].genre_ids[j]){
               film.push(this.inputFilm[i]);
+              //break del secondo for
+              j = this.inputFilm[i].genre_ids.length;
+              break;
+              }
 
         if (film.length == 0) 
           this.filterError = true;
@@ -101,7 +107,6 @@ export default {
           return;
       } else
         this.lastPage = false;
-        console.log('PROVO axios');
       let response = await this.makeAxiosCall(
         `https://api.themoviedb.org/3/search/movie`,
         this.inputText,

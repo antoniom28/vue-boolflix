@@ -1,12 +1,13 @@
 <template>
   <ul class="section-list" id="home">
+    <h2 class="full-w">TOP RATED FILM</h2>
+
     <FilmCards 
       v-for="(film, index) in ratedFilm" 
       :key="index" 
       :films="film" 
       home-page="home-page"
     />
-
     <div class="full-w load-more">
       <span @click="loadMore()">
         LOAD MORE
@@ -62,4 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2{
+  margin: 10px 0;
+}
 </style>

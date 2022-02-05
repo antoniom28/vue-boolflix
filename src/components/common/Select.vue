@@ -1,23 +1,31 @@
 <template>
-  <div v-if="getInput" class="select-genre">
-    <span @click="showFilter">
+  <div v-if="getInput && change" class="select-genre">
+    <span 
+     @click="showFilter"
+     :class="{'filter-focus' : filterBox}"
+    >
       <i class="fas fa-filter"></i>
     </span>
-    <select
-      v-model="option"
-      v-if="filterBox"
-      @change="filter"
-      name="filter-genre"
-      id="filter-genre"
-    >
-      <option :value="0">All</option>
-      <option 
-      :value="opt.id" 
-      v-for="(opt, index) in optionList" :key="index"
-      >
-        {{ opt.name }}
-      </option>
-    </select>
+    <div v-if="filterBox" class="div-check">
+      <div 
+        v-for="(opt, index) in optionList" 
+        :key="index" 
+        class="option-check">
+        <input
+          v-model="filterSlct"
+          type="checkbox"
+          :name="opt.name"
+          :id="opt.id"
+          :value="opt.id"
+        />
+        {{ opt.name }}<br />
+      </div>
+
+     
+    </div>
+      <div class="button-filter" v-if="filterBox">
+        <button @click="filter">FILTRA</button>
+      </div>
   </div>
 </template>
 
@@ -28,7 +36,7 @@ export default {
   name: "Select",
   props: {
     optionArr: Array,
-    filterSelect: Number,
+    filterSelect: Array,
     inputType: String,
   },
   data() {
@@ -36,10 +44,21 @@ export default {
       option: "",
       filterBox: false,
       filterSlct: this.filterSelect,
+      prevInputType: "",
       optionList: this.optionArr,
     };
   },
   computed: {
+    change: {
+      get(){
+        if(this.prevInputType != this.inputType){
+          this.filterSlct = [];
+          this.filter();
+        }
+        this.prevInputType = this.inputType;
+        return true;
+      },
+    },
     getInput: function () {
       let value = null;
       if (this.inputType != "HOME" && this.inputType) {
@@ -67,8 +86,7 @@ export default {
     showFilter() {
       this.filterBox = !this.filterBox;
     },
-    filter() {
-      this.filterSlct = this.option; //deve fare l'emit
+    filter() { 
       this.$emit("getFilterSelect", this.filterSlct);
     },
   },
@@ -76,15 +94,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.select-genre {
-  width: 100%;
-  padding-left: 10px;
-  padding-top: 10px;
+@import "../../assets/style/partials/variables.scss";
 
+.filter-focus{
+  color: $text_color;
+}
+
+.select-genre {
   .fa-filter {
+    margin-left: 10px;
+    margin-top: 10px;
     font-size: 30px;
     vertical-align: middle;
     cursor: pointer;
+  }
+
+  .button-filter{
+    margin-top: 10px;
+    text-align: center;
+
+    button{
+      padding: 3px;
+      font-size: 1em;
+      font-weight: bold;
+
+      &:hover{
+        color: rgb(71, 71, 71);
+      }
+    }
+  }
+
+  .div-check{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 160px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  @media screen and (min-width: 601px) {
+    .div-check{
+      height: 100px!important;
+    }
   }
 
   select {

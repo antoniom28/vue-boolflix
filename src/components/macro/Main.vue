@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       optionArr: [],
-      filterSelect: 0,
+      filterSelect: [],
     };
   },
   components: {
@@ -61,7 +61,7 @@ export default {
   },
   props: {
     inputText: String,
-    inputType: String, 
+    inputType: String,
   },
   methods: {
     showHome() {
