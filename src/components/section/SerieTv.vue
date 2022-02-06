@@ -39,6 +39,7 @@ export default {
       prevInputText: "",
       lastPage : false,
       totalPage : 1,
+      lang : "it",
     };
   },
   components: {
@@ -54,8 +55,11 @@ export default {
   computed: {
     getInputText() {
       this.updateInputText();
-
-      if (this.inputText != "" && this.inputText != null) 
+      if(this.lang != this.language){
+        this.page = 1;
+        this.getFilm();
+      }
+      else if (this.inputText != "" && this.inputText != null) 
         if (this.page == 1) 
           this.getFilm();
       return this.inputText;
@@ -71,8 +75,12 @@ export default {
          for (let i = 0; i < this.inputFilm.length; i++)
           for (let j = 0; j < this.inputFilm[i].genre_ids.length; j++)
             for (let z = 0; z < this.filterSelect.length; z++)
-            if (this.filterSelect[z] == this.inputFilm[i].genre_ids[j])
+            if (this.filterSelect[z] == this.inputFilm[i].genre_ids[j]){
               film.push(this.inputFilm[i]);
+              //break del secondo for
+              j = this.inputFilm[i].genre_ids.length;
+              break;
+              }
 
         if (film.length == 0)
           this.filterError = true;
@@ -104,11 +112,12 @@ export default {
           return;
       } else
         this.lastPage = false;
+        this.lang = this.language
       let response = await this.makeAxiosCall(
         `https://api.themoviedb.org/3/search/tv`,
         this.inputText,
         this.page,
-        this.language,
+        this.lang,
       );
       this.totalPage = response.data.total_pages;
       this.inputFilm.push(...response.data.results);

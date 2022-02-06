@@ -8,7 +8,7 @@
         <p class="menuOption tv" @click="getInputType('tv')"> Serie TV </p>
       </div>
     </div>
-    <Cerca v-if="showSearch" @searchFilm="get" />
+    <Cerca v-show="showSearch" @searchFilm="get" />
   </header>
 </template>
 

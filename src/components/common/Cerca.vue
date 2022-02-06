@@ -48,10 +48,8 @@ export default {
   methods: {
     changeLang(){
         this.showLang = !this.showLang;
-      if (this.inputControl(this.inputText)) {
           this.prevInput = this.inputText;
           this.$emit("searchFilm", this.inputText, this.langSelected);
-        }
     },
     search: function () {
       if (this.inputControl(this.inputText)) {
