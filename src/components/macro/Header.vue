@@ -71,7 +71,7 @@ p {
   cursor: pointer;
 }
 
-@media screen and (min-width:601px) {
+@media screen and (min-width:700px) {
   header{
     flex-direction:row!important;
   }

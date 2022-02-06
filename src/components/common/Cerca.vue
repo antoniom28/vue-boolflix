@@ -1,13 +1,18 @@
 <!-- CHIAMATO DA HEADER -->
 <template>
   <div class="container-cerca">
-    <input
+    <div class="input-cerca">
+    <span @click="search">
+      <i class="fas fa-search"></i>
+    </span>
+      <input
       @keyup.enter="search"
       v-model="inputText"
       type="text"
       name=""
       id=""
     />
+    </div>
 
     <div 
       class="language"
@@ -78,11 +83,6 @@ export default {
     align-items: center;
 }
 
-input {
-  height: 25px;
-  width: 150px;
-  font-size: 1em;
-}
 div.language{
   display: inline-block;
   color: white;
@@ -94,7 +94,30 @@ div.language{
   text-align: center;
   cursor: pointer;
 }
+
 select{
   margin: 0 10px;
+}
+
+.input-cerca{
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 5px;
+
+  span{
+    color:black;
+    cursor: pointer;
+  }
+}
+input {
+  height: 25px;
+  width: 150px;
+  margin-left: 5px;
+  font-size: 1em;
+  border: none transparent;
+  outline: none;
+  border-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 </style>
