@@ -24,6 +24,7 @@ export default {
       prevInputType: null, //evita la chiamata su axios allo spam sulla categoria
       inputText: null,
       showSearch: false,
+      language: "it",
     };
   },
   components: {
@@ -35,7 +36,7 @@ export default {
 
       if (this.inputText != null)
         if (this.prevInputType != this.inputType)
-          this.get(this.inputText);
+          this.get(this.inputText,this.language);
     },
     getInputType(type) {
       this.prevInputType = this.inputType;
@@ -45,9 +46,10 @@ export default {
       this.noFocusOption(this.$el.querySelectorAll(`.menuOption`));
       this.$el.querySelector(`.menuOption.${type}`).style.color = "white";
     },
-    get(input) {
+    get(input,lang) {
       this.inputText = input;
-      this.$emit("loadFilmApp", this.inputText, this.inputType);
+      this.language = lang;
+      this.$emit("loadFilmApp", this.inputText, this.inputType, this.language);
     },
   },
 };

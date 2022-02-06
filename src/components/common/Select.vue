@@ -21,7 +21,6 @@
         {{ opt.name }}<br />
       </div>
 
-     
     </div>
       <div class="button-filter" v-if="filterBox">
         <button @click="filter">FILTRA</button>

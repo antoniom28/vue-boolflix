@@ -3,6 +3,7 @@
     <Header @loadFilmApp="loadFilm" />
     <Main :inputText="inputText" 
     :inputType="inputType"
+    :language="language"
      />
     
     <Footer />
@@ -20,6 +21,7 @@ export default {
     return{
       inputText : "",
       inputType : null,
+      language: "it",
     }
   },
   components: {
@@ -28,9 +30,10 @@ export default {
     Header,
   },
   methods: {
-    loadFilm(input,type){
+    loadFilm(input,type,lang){
       this.inputText = input;
       this.inputType = type.toUpperCase();
+      this.language = lang;
     },
   },
 }

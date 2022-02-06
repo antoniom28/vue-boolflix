@@ -49,6 +49,7 @@ export default {
     filterSelect: Array,
     inputText: String,
     inputType: String,
+    language: String,
   },
   computed: {
     getInputText() {
@@ -110,19 +111,21 @@ export default {
       let response = await this.makeAxiosCall(
         `https://api.themoviedb.org/3/search/movie`,
         this.inputText,
-        this.page
+        this.page,
+        this.language
       );
   
       this.totalPage = response.data.total_pages;
       this.inputFilm.push(...response.data.results);
     },
-    makeAxiosCall(url, input, page) {
-      console.log("call of axos from movie");
+    makeAxiosCall(url, input, page, language) {
+      console.log("call of axos from movie",language);
       return axios.get(url, {
         params: {
           api_key: "8de7c27ea07119ebc4c79cbfffb7d231",
           query: input,
           page: page,
+          language: language,
         },
       });
     },

@@ -27,6 +27,7 @@
         :filterSelect="filterSelect"
         :inputText="inputText"
         :inputType="inputType"
+        :language="language"
       />
 
       <SerieTv 
@@ -34,6 +35,7 @@
         :filterSelect="filterSelect"
         :inputText="inputText"
         :inputType="inputType"
+        :language="language"
       />
     </div>
   </main>
@@ -62,6 +64,7 @@ export default {
   props: {
     inputText: String,
     inputType: String,
+    language: String,
   },
   methods: {
     showHome() {

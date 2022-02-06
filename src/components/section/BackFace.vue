@@ -26,6 +26,7 @@
       <div class="overview">
           <h5>overview : &nbsp;</h5>
           <span>{{ films.overview }}</span>
+          <span v-if="films.overview == ''">overview not available for selected language</span>
       </div>
 
       <p class="see-details" @click="showDetails(films.id)">
