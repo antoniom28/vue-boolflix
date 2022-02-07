@@ -1,5 +1,5 @@
 <template>
-  <ul class="section-list" v-show="getInputText != null" id="movie">
+  <ul class="section-list" v-show="getInputText != null" :id="call">
     <FilmCards
       v-for="(film, index) in filterFilm"
       :key="index"
@@ -51,6 +51,7 @@ export default {
     inputText: String,
     inputType: String,
     language: String,
+    call: String,
   },
   computed: {
     getInputText() {
@@ -114,7 +115,7 @@ export default {
         this.lastPage = false;
       this.lang = this.language
       let response = await this.makeAxiosCall(
-        `https://api.themoviedb.org/3/search/movie`,
+        `https://api.themoviedb.org/3/search/${this.call}`,
         this.inputText,
         this.page,
         this.lang
@@ -124,7 +125,7 @@ export default {
       this.inputFilm.push(...response.data.results);
     },
     makeAxiosCall(url, input, page, language) {
-      console.log("call of axos from movie",language);
+      console.log(`call of axos from ${this.call}`,language);
       return axios.get(url, {
         params: {
           api_key: "8de7c27ea07119ebc4c79cbfffb7d231",

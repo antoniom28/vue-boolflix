@@ -17,25 +17,22 @@
 
       <Home v-show="showHome()" />
 
-      <!-- movie e serietv sono praticamente uguali
-      ma con url diversa, in questo modo l'axios in movie e tv viene
-      chiamato solo quando scriviamo in input, e non sullo switch 
-      o sul cambio filtro
-      -->
       <Movie 
         v-show="inputType == 'MOVIE'"
         :filterSelect="filterSelect"
         :inputText="inputText"
         :inputType="inputType"
         :language="language"
+        call= 'movie'
       />
 
-      <SerieTv 
+      <Movie 
         v-show="inputType == 'TV'"
         :filterSelect="filterSelect"
         :inputText="inputText"
         :inputType="inputType"
         :language="language"
+        call= 'tv'
       />
     </div>
   </main>
@@ -44,7 +41,6 @@
 <script>
 import Home from "../section/Home.vue";
 import Movie from "../section/Movie.vue";
-import SerieTv from "../section/SerieTv.vue";
 import Select from "../common/Select.vue";
 
 export default {
@@ -59,7 +55,6 @@ export default {
     Select,
     Home,
     Movie,
-    SerieTv,
   },
   props: {
     inputText: String,
