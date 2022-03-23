@@ -1,6 +1,6 @@
 <template>
   <ul class="section-list" id="home">
-    <h2 class="full-w">TOP RATED FILM</h2>
+    <h1 class="full-w">TOP RATED MOVIES</h1>
 
     <FilmCards 
       v-for="(film, index) in ratedFilm" 
@@ -63,7 +63,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h2{
-  margin: 10px 0;
+h1{
+  margin: 10px 20px;
+  text-align: left;
+  text-shadow: 2px 2px 3px red;
 }
 </style>

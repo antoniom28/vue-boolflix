@@ -16,14 +16,14 @@
           type="checkbox"
           :name="opt.name"
           :id="opt.id"
-          :value="opt.id"
+          :value="{id : opt.id , name : opt.name}"
         />
         {{ opt.name }}<br />
       </div>
 
     </div>
       <div class="button-filter" v-if="filterBox">
-        <button @click="filter">FILTRA</button>
+        <button @click="filter">FILTER</button>
       </div>
   </div>
 </template>
@@ -86,7 +86,15 @@ export default {
       this.filterBox = !this.filterBox;
     },
     filter() { 
-      this.$emit("getFilterSelect", this.filterSlct);
+      this.filterBox = false;
+      console.log(this.filterSlct);
+      let name= [];
+      let id = [];
+      this.filterSlct.forEach((item,index) => {
+        name.push(item.name);
+        id.push(item.id)
+      });
+      this.$emit("getFilterSelect", id, name);
     },
   },
 };

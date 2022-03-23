@@ -15,14 +15,13 @@
     </div>
 
     <div 
-      class="language"
-      v-if="showLang"
-      @click="showLang = !showLang"
-    > 
-      {{langSelected}} 
+      @click="search"
+      class="button"
+    >
+        SEARCH
     </div>
+
     <select 
-      v-else
       @change="changeLang" 
       v-model="langSelected" 
       name="lang" id="language"
@@ -52,9 +51,10 @@ export default {
   },
   methods: {
     changeLang(){
-        this.showLang = !this.showLang;
+          this.showLang = !this.showLang;
           this.prevInput = this.inputText;
-          this.$emit("searchFilm", this.inputText, this.langSelected);
+          if(this.inputText != "" && this.inputText != null)
+            this.$emit("searchFilm", this.inputText, this.langSelected);
     },
     search: function () {
       if (this.inputControl(this.inputText)) {
@@ -83,26 +83,37 @@ export default {
     align-items: center;
 }
 
-div.language{
+div.language , div.button{
   display: inline-block;
   color: white;
   background-color: $text_color;
   width: 39px;
-  padding: 3px 0;
-  margin: 0 10px;
+  padding: 5px 0;
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
 }
 
-select{
+div.button{
   margin: 0 10px;
+  width:  unset;
+  padding: 5px 5px;
+}
+
+select{
+  background-color: red;
+  padding: 5px 0;
+  color: white;
+
+  &:focus-visible{
+    outline: unset;
+  }
 }
 
 .input-cerca{
   background-color: white;
   border-radius: 20px;
-  padding: 0 5px;
+  padding: 2px 5px;
 
   span{
     color:black;

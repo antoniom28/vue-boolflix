@@ -1,11 +1,13 @@
 <template>
   <header class="container-header">
     <div class="nav-left">
-      <h2>BOOLFLIX</h2>
+      <h2>
+        <img class="logo" src="../../assets/img/logo.png" alt="">
+        </h2>
       <div>
         <p class="menuOption home" @click="getInputType('home')"> Home </p>
-        <p class="menuOption movie" @click="getInputType('movie')"> Film </p>
-        <p class="menuOption tv" @click="getInputType('tv')"> Serie TV </p>
+        <p class="menuOption movie" @click="getInputType('movie')"> Movie </p>
+        <p class="menuOption tv" @click="getInputType('tv')"> TV Series </p>
       </div>
     </div>
     <Cerca v-show="showSearch" @searchFilm="get" />
@@ -60,6 +62,11 @@ export default {
 
 .menuOption {
   color: grey;
+  transition: all 150ms linear;
+
+  &:hover{
+    transform: scale(1.2);
+  }
 }
 
 .home {
@@ -71,7 +78,7 @@ p {
   cursor: pointer;
 }
 
-@media screen and (min-width:700px) {
+@media screen and (min-width:800px) {
   header{
     flex-direction:row!important;
   }
@@ -104,5 +111,9 @@ header {
   h2 {
     color: $text_color;
   }
+}
+
+img.logo{
+  width: 150px;
 }
 </style>

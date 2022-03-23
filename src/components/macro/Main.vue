@@ -9,11 +9,26 @@
       />
 
       <h2 
-        v-if="this.inputType && this.inputType != 'HOME'" 
+        v-if="filterSelectName.length >= 4"
         class="full-w"
       >
-        Ricerca per : {{ this.inputType }}
+          Search For : Multiple Genre
       </h2>
+
+      <h2 
+        v-else-if="this.inputType && this.inputType != 'HOME' && filterSelectName.length > 0" 
+        class="full-w"
+      >
+        Search For : 
+        <h3 
+          v-for="(name,index) in filterSelectName"
+          :key="'filter'+index"
+        > 
+          {{ name }}<span v-if="index != filterSelectName.length - 1">, &nbsp;</span>
+        </h3>
+      </h2>
+
+      
 
       <Home v-show="showHome()" />
 
@@ -49,6 +64,7 @@ export default {
     return {
       optionArr: [],
       filterSelect: [],
+      filterSelectName : "",
     };
   },
   components: {
@@ -71,8 +87,9 @@ export default {
         return true;
       return false;
     },
-    getFilterSelect(filter) {
-      this.filterSelect = filter;
+    getFilterSelect(filterId , filterName) {
+      this.filterSelect = filterId;
+      this.filterSelectName = filterName;
     },
   },
 };
@@ -81,7 +98,14 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/style/partials/variables.scss";
 main {
-  background-color: $bg_sec_color;
-  min-height: calc(100vh - 60px);
+  //background-color: $bg_sec_color;
+  background-image: url(../../assets/img/background.jpg);
+    background-size: cover;
+    min-height: calc(100vh - 60px);
+    background-attachment: fixed;
+}
+
+h2{
+  text-shadow: 2px 2px 3px black;
 }
 </style>

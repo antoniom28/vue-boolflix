@@ -7,14 +7,8 @@
         :alt="films.poster_path"
       />
 
-      <div v-else>
-      PREVIEW NOT AVAILABLE
-      <img
-        class="image-null"
-        src="../../assets/img/image_null.jpg"
-        alt=""
-      />
-      PREVIEW NOT AVAILABLE
+      <div class="no-img" v-else>
+        <h1>{{films.title}}</h1>
       </div>
      
     </div>
@@ -45,5 +39,10 @@ export default {
     .image-null{
       height: unset;
     }
+}
+
+.no-img{
+  text-align: center;
+  padding-top: 40px;
 }
 </style>
